@@ -16,7 +16,7 @@ script and call to action for your business, ready to film this week.
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.162-5b4ff0?style=flat-square&logo=fastapi&logoColor=white)](app/main.py)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-5b4ff0?style=flat-square&logo=postgresql&logoColor=white)](docker-compose.yml)
 [![Render](https://img.shields.io/badge/hosted%20on-Render-5b4ff0?style=flat-square&logo=render&logoColor=white)](render.yaml)
-[![Tests](https://github.com/OlehDatsyk/Remixfox/actions/workflows/tests.yml/badge.svg)](https://github.com/OlehDatsyk/Remixfox/actions/workflows/tests.yml)
+[![Tests](https://github.com/OlehDatsyk/Remixfox-public/actions/workflows/tests.yml/badge.svg)](https://github.com/OlehDatsyk/Remixfox-public/actions/workflows/tests.yml)
 
 <img src="docs/assets/social-preview.png" alt="Remixfox: get views, leads and clients from reels" width="820">
 
