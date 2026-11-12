@@ -1,0 +1,3 @@
+# For running the tests (pytest) locally and in GitHub Actions.
+-r requirements.txt
+pytest==9.2.0

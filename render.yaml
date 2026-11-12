@@ -1,0 +1,55 @@
+services:
+  - type: web
+    name: reels-remix
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: main
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    # The live service is deployed from its private repository, through a deploy hook.
+    autoDeployTrigger: "off"
+    # Also checks the database; never redirected to the custom domain.
+    healthCheckPath: /api/health
+    # Add your own domain here (domains: [example.com]) and set PUBLIC_URL to it.
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: remixfox-db
+          property: connectionString
+      # Secrets: set in the Render dashboard, never committed.
+      - key: APIFY_TOKEN
+        sync: false
+      # Keys sign-in code hashes and the Telegram webhook secret; Render generates it once.
+      - key: SECRET_KEY
+        generateValue: true
+      # The owner's e-mail: personal, so it is set in the dashboard only.
+      - key: OWNER_EMAIL
+        sync: false
+      # Stripe subscriptions (see app/billing.py); payments stay off until set.
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      # The AI step: GPT-5.6 Luna through the OpenAI API (app/ai.py).
+      - key: OPENAI_API_KEY
+        sync: false
+      # Sign-in codes by e-mail (Resend); until set, codes go to the server log.
+      - key: RESEND_API_KEY
+        sync: false
+      # The Telegram bot that signs people in (from @BotFather).
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      # The site's address: pages opened at reels-remix.onrender.com move here.
+      - key: PUBLIC_URL
+        sync: false
+
+databases:
+  - name: remixfox-db
+    plan: free
+    region: frankfurt
+    databaseName: remixfox
+    user: remixfox
+    postgresMajorVersion: "16"
+    # No access from the internet: only services in this Render account.
+    ipAllowList: []

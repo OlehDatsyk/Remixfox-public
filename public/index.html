@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Remixfox</title>
+  <meta name="robots" content="noindex, nofollow"><!-- the signed-in app: never in search results -->
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <!-- Our own copy of the font, preloaded so text never switches fonts while loading. -->
+  <link rel="preload" href="fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Apply the saved theme before first paint to avoid a flash.
+    try {
+      const t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+
+    // On desktop, scale the 1549 x 1015 reference layout to fit the window.
+    (function () {
+      var DESIGN_W = 1549, DESIGN_H = 1015, MIN_SCALE = 0.6, MAX_SCALE = 1.25;
+      var supported = window.CSS && CSS.supports && CSS.supports('zoom', '1');
+      function fit() {
+        var w = window.innerWidth, h = window.innerHeight;
+        var scale = Math.min(w / DESIGN_W, h / DESIGN_H, MAX_SCALE);
+        var on = supported && w >= 1100 && scale >= MIN_SCALE;
+        var root = document.documentElement;
+        root.classList.toggle('fit', on);
+        root.style.setProperty('--ui-scale', on ? scale.toFixed(4) : '1');
+      }
+      fit();
+      window.addEventListener('resize', fit);
+    })();
+  </script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="g-zap" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#a855f7"/>
+        <stop offset="1" stop-color="#6d28d9"/>
+      </linearGradient>
+    </defs>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M10.6 2.6a2.2 2.2 0 0 1 2.8 0l7.4 6.1c.5.4.7 1 .7 1.6V20a2 2 0 0 1-2 2h-4.2a1 1 0 0 1-1-1v-5.2h-4.6V21a1 1 0 0 1-1 1H4.5a2 2 0 0 1-2-2v-9.7c0-.6.3-1.2.7-1.6z" fill="currentColor"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13.5 1.5 4 13.6h7.2l-1.4 8.9 9.7-12.4h-7.3z" fill="url(#g-zap)"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.2v15.6a1 1 0 0 0 1.5.86l13-7.8a1 1 0 0 0 0-1.72l-13-7.8A1 1 0 0 0 7 4.2z" fill="currentColor"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/></symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" fill="currentColor"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.1 4.6 2.6l.7 1 .7-1c1-1.5 2.5-2.6 4.6-2.6 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z" fill="currentColor"/></symbol>
+    <symbol id="i-comment" viewBox="0 0 24 24"><path d="M12 3c5 0 9 3.4 9 7.7s-4 7.7-9 7.7c-1 0-2-.1-2.9-.4L4 20.5l1.3-4.2C3.9 14.9 3 12.9 3 10.7 3 6.4 7 3 12 3z" fill="currentColor"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 4 4-4 4M12 17h7"/></symbol>
+    <symbol id="i-plan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="17" rx="2.5"/><path d="M9 2.5v3M15 2.5v3M8 11h8M8 15.5h5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M8 16v-3M12.5 16V8M17 16v-6"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6M14 11v6"/></symbol>
+  </svg>
+
+  <div class="tour" id="tour" hidden>
+    <div class="tour-spot" id="tour-spot" aria-hidden="true"></div>
+    <div class="tour-card" id="tour-card" role="dialog" aria-modal="false" aria-labelledby="tour-title" aria-describedby="tour-text">
+      <span class="tour-arrow" id="tour-arrow" aria-hidden="true"></span>
+      <p class="tour-step" id="tour-step"></p>
+      <h2 id="tour-title"></h2>
+      <p id="tour-text"></p>
+      <div class="tour-dots" id="tour-dots" aria-hidden="true"></div>
+      <div class="tour-actions">
+        <button class="btn btn-chip is-quiet" type="button" id="tour-skip">Skip the guide</button>
+        <button class="btn btn-chip" type="button" id="tour-back">Back</button>
+        <button class="btn btn-primary" type="button" id="tour-next">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="app">
+    <!-- Left: brand, navigation, add competitor -->
+    <aside class="panel sidebar">
+      <a class="brand" href="/" id="brand" title="Go to Home">
+        <img class="brand-logo" src="logo.svg" alt="" width="84" height="84">
+        <span class="brand-name">Remixfox</span>
+      </a>
+      <button class="plans-pill" type="button" data-open-plans title="Plans and prices">
+        <svg class="icon" aria-hidden="true"><use href="#i-zap"/></svg>Plans
+      </button>
+
+      <nav class="nav" aria-label="Main">
+        <button class="nav-item is-active" type="button" data-view="home" aria-current="page">
+          <svg class="icon"><use href="#i-home"/></svg>Home
+        </button>
+        <button class="nav-item" type="button" data-view="main">
+          <svg class="icon"><use href="#i-grid"/></svg>Reels
+        </button>
+        <button class="nav-item" type="button" data-view="plan">
+          <svg class="icon"><use href="#i-plan"/></svg>Content plan<span class="nav-count" id="plan-count" hidden></span>
+        </button>
+        <button class="nav-item" type="button" data-view="competitors">
+          <svg class="icon"><use href="#i-users"/></svg>Competitors
+        </button>
+        <button class="nav-item" type="button" data-view="admin" id="nav-admin" hidden>
+          <svg class="icon"><use href="#i-chart"/></svg>Admin
+        </button>
+        <!-- Phones only: the menu becomes a bottom tab bar, with Settings in it. -->
+        <button class="nav-item nav-phone" type="button" data-view="settings">
+          <svg class="icon"><use href="#i-gear"/></svg>Settings
+        </button>
+      </nav>
+
+      <hr class="divider">
+
+      <section class="add-competitor" aria-labelledby="add-competitor-title">
+        <h2 id="add-competitor-title">Add Competitor</h2>
+        <p>Paste Instagram<br> account link or username</p>
+        <form id="competitor-form" novalidate>
+          <label class="visually-hidden" for="competitor-input">Instagram link or username</label>
+          <input id="competitor-input" name="competitor" type="text" inputmode="url" autocomplete="off"
+                 placeholder="https://www.instagram.com/username" spellcheck="false">
+          <button class="btn btn-primary" type="submit">
+            <svg class="icon"><use href="#i-download"/></svg>Fetch Reels
+          </button>
+        </form>
+      </section>
+
+      <div class="sidebar-footer">
+        <button class="settings" type="button" id="settings-btn">
+          <svg class="icon"><use href="#i-gear"/></svg>Settings
+        </button>
+        <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch to dark theme">
+          <svg class="icon"><use href="#i-sun"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Centre: reels feed / competitors -->
+    <main class="panel feed">
+      <div class="blob" aria-hidden="true"></div>
+
+      <section id="view-home" class="view">
+        <header class="feed-header">
+          <div>
+            <h1>Ideas</h1>
+            <p class="subtitle" id="home-subtitle">Swipe right to take an idea, left to skip it</p>
+          </div>
+        </header>
+        <div class="deck" id="deck" aria-live="polite">
+          <p class="empty deck-empty" id="deck-empty" hidden>No ideas left. Fetch new reels on the Competitors page, or undo a skip.</p>
+        </div>
+        <div class="deck-actions">
+          <button class="round-btn is-small" type="button" id="swipe-undo" title="Undo (Backspace)" aria-label="Undo">
+            <svg class="icon"><use href="#i-undo"/></svg>
+          </button>
+          <button class="round-btn is-skip" type="button" id="swipe-skip" title="Skip (←)" aria-label="Skip">
+            <svg class="icon"><use href="#i-close"/></svg>
+          </button>
+          <button class="round-btn is-take" type="button" id="swipe-take" title="Take (→)" aria-label="Take">
+            <svg class="icon"><use href="#i-check"/></svg>
+          </button>
+          <button class="round-btn is-small" type="button" id="swipe-edit" title="Take and edit (↑)" aria-label="Take and edit">
+            <svg class="icon"><use href="#i-pencil"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <section id="view-main" class="view" hidden>
+        <header class="feed-header">
+          <div>
+            <h1>Your Reels</h1>
+            <p class="subtitle" id="feed-subtitle">20 latest reels from competitors</p>
+            <p class="loading-note" id="loading-note" hidden>Waking up the server. The free plan sleeps when idle, so this can take up to a minute.</p>
+          </div>
+          <div class="header-actions">
+            <div class="sort-toggle" id="sort-toggle" role="group" aria-label="Order of the reels">
+              <button type="button" data-sort="views" aria-pressed="true">Most viewed</button>
+              <button type="button" data-sort="latest" aria-pressed="false">Latest</button>
+            </div>
+            <button class="btn btn-soft" type="button" id="refresh">
+              <svg class="icon"><use href="#i-refresh"/></svg>Refresh
+            </button>
+          </div>
+        </header>
+        <div class="account-filter" id="account-filter" role="group" aria-label="Show reels from" hidden></div>
+        <ul class="reel-grid" id="reel-grid" aria-label="Reels" aria-busy="true">
+          <!-- Placeholders until the reels arrive -->
+          <li class="reel skeleton" aria-hidden="true"><span class="reel-cover"></span><span class="btn-remix"></span></li>
+          <li class="reel skeleton" aria-hidden="true"><span class="reel-cover"></span><span class="btn-remix"></span></li>
+          <li class="reel skeleton" aria-hidden="true"><span class="reel-cover"></span><span class="btn-remix"></span></li>
+          <li class="reel skeleton" aria-hidden="true"><span class="reel-cover"></span><span class="btn-remix"></span></li>
+          <li class="reel skeleton" aria-hidden="true"><span class="reel-cover"></span><span class="btn-remix"></span></li>
+          <li class="reel skeleton" aria-hidden="true"><span class="reel-cover"></span><span class="btn-remix"></span></li>
+        </ul>
+        <p class="empty" id="reels-empty" hidden>No reels yet. Add a competitor on the Competitors screen to fetch their latest reels.</p>
+      </section>
+
+      <section id="view-plan" class="view" hidden>
+        <header class="feed-header">
+          <div>
+            <h1>Content plan</h1>
+            <p class="subtitle" id="plan-subtitle">Reels you plan to film</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-chip" type="button" id="export-csv" title="Every reel with its numbers and scripts, for Excel or Google Sheets (Pro and Studio)">
+              <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Export CSV
+            </button>
+            <button class="btn btn-chip" type="button" id="export-notion" title="Your content plan as Markdown, which Notion imports (Studio)">
+              <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Export for Notion
+            </button>
+          </div>
+        </header>
+        <div class="kanban" id="kanban">
+          <section class="kanban-col" data-status="todo" aria-label="Not started">
+            <header class="kanban-head"><span aria-hidden="true">❌</span>Not started<b class="kanban-count">0</b></header>
+            <ul class="kanban-list" data-status="todo"></ul>
+          </section>
+          <section class="kanban-col" data-status="ready" aria-label="Ready to film">
+            <header class="kanban-head"><span aria-hidden="true">⏳</span>Ready to film<b class="kanban-count">0</b></header>
+            <ul class="kanban-list" data-status="ready"></ul>
+          </section>
+          <section class="kanban-col" data-status="posted" aria-label="Posted">
+            <header class="kanban-head"><span aria-hidden="true">✅</span>Posted<b class="kanban-count">0</b></header>
+            <ul class="kanban-list" data-status="posted"></ul>
+          </section>
+        </div>
+        <p class="empty" id="plan-empty" hidden>Your content plan is empty. Take ideas on Home, or press “Add to content plan” on a reel.</p>
+      </section>
+
+      <section id="view-competitors" class="view" hidden>
+        <header class="feed-header">
+          <div>
+            <h1>Competitors</h1>
+            <p class="subtitle" id="competitors-subtitle">Accounts you track</p>
+          </div>
+        </header>
+        <ul class="competitor-list" id="competitor-list"></ul>
+        <p class="empty" id="competitors-empty">No competitors yet. Paste an Instagram account in “Add Competitor” to start tracking their reels.</p>
+      </section>
+
+      <section id="view-plans" class="view" hidden>
+        <header class="feed-header">
+          <div>
+            <h1>Plans and prices</h1>
+            <p class="subtitle">Choose or change your plan at any time; prices in pounds</p>
+          </div>
+        </header>
+        <div class="settings-grid">
+          <section class="s-card" id="s-billing" aria-labelledby="s-billing-title">
+            <h2 id="s-billing-title">Your plan</h2>
+            <p class="s-status" id="billing-status"></p>
+            <p class="s-note" id="billing-note"></p>
+            <div class="s-usage" id="billing-usage" hidden></div>
+            <div class="s-plans" id="billing-plans" hidden>
+              <div class="sort-toggle s-interval" id="billing-interval" role="group" aria-label="Billing period">
+                <button type="button" data-interval="month" aria-pressed="true">Monthly</button>
+                <button type="button" data-interval="year" aria-pressed="false">Yearly <span class="s-save">−20%</span></button>
+              </div>
+              <!-- UK consumer law: a plan may start inside the 14-day cancellation period only on request. -->
+              <label class="s-consent" id="plan-consent" hidden>
+                <input type="checkbox" id="plan-consent-box">
+                <span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms of use</a> and ask
+                  Remixfox to start my plan straight away. If I cancel within 14 days, I get my payment back minus a fair
+                  amount for what I used (<a href="terms.html#cancel" target="_blank" rel="noopener">how cancelling works</a>).</span>
+              </label>
+              <ul class="s-plan-list" id="plan-list"></ul>
+              <p class="s-note">Prices in pounds sterling. Cancel at any time; you keep your plan until the end of the period you paid for.</p>
+            </div>
+            <div class="s-actions">
+              <button class="btn btn-chip" type="button" id="manage-billing" hidden>Manage billing and invoices</button>
+            </div>
+          </section>
+
+        </div>
+      </section>
+
+      <section id="view-settings" class="view" hidden>
+        <header class="feed-header">
+          <div>
+            <h1>Settings</h1>
+            <p class="subtitle" id="settings-subtitle">Your account</p>
+          </div>
+        </header>
+        <div class="settings-grid">
+          <section class="s-card" aria-labelledby="s-plan-title">
+            <h2 id="s-plan-title">Subscription</h2>
+            <p class="s-status" id="settings-plan-status"></p>
+            <div class="s-actions">
+              <button class="btn btn-primary" type="button" data-open-plans>Plans and prices</button>
+            </div>
+          </section>
+
+          <section class="s-card" id="s-language" aria-labelledby="s-language-title">
+            <h2 id="s-language-title">Scripts language</h2>
+            <p class="s-note">The AI writes every hook, main script and call to action in this language. Reels already in it are kept word for word; the rest are translated. Changing it rewrites the AI's version of your reels in a few seconds; your own edits stay as they are.</p>
+            <label class="s-select">
+              <span>Write scripts in</span>
+              <select id="translate-to"></select>
+            </label>
+          </section>
+
+          <section class="s-card" aria-labelledby="s-voice-title">
+            <h2 id="s-voice-title">Your voice <span class="s-tag">AI remix</span></h2>
+            <p class="s-note">Tell the AI about you, and “Remix in my voice” rewrites a competitor's reel for your niche, your audience and your tone, keeping what made it work. Nothing is invented about you that is not written here.</p>
+            <form class="s-voice" id="voice-form">
+              <textarea id="remix-profile" name="remix_profile" rows="4" maxlength="1000" aria-label="About you, for AI remixes"
+                placeholder="For example: Fitness coach for busy mums in the UK. Friendly, direct, a bit funny. I sell a 12-week online plan. Call to action: comment PLAN."></textarea>
+              <div class="s-actions">
+                <button class="btn btn-primary" type="submit" id="voice-save">Save</button>
+                <span class="s-note" id="voice-count"></span>
+              </div>
+            </form>
+          </section>
+
+          <section class="s-card" aria-labelledby="s-account-title">
+            <h2 id="s-account-title">Account</h2>
+            <div class="s-profile">
+              <span class="s-avatar" id="s-avatar" aria-hidden="true"></span>
+              <div><b id="s-name"></b><small id="s-handle"></small></div>
+            </div>
+            <dl class="s-facts">
+              <div><dt>E-mail</dt><dd id="s-email"></dd></div>
+              <div><dt>Telegram</dt><dd id="s-telegram"></dd></div>
+              <div><dt>Member since</dt><dd id="s-since"></dd></div>
+            </dl>
+            <p class="s-note">Sign in with a code sent to your e-mail, through the Telegram bot, or with your e-mail and a password.</p>
+            <form class="s-add" id="password-form">
+              <input type="password" id="new-password" name="password" autocomplete="new-password" minlength="8" maxlength="128"
+                     placeholder="New password, at least 8 characters" aria-label="New password" required>
+              <button class="btn btn-primary" type="submit" id="password-submit">Set password</button>
+            </form>
+            <p class="s-note" id="password-note"></p>
+            <div class="s-login" id="tg-connect-wait" hidden>
+              <p><span class="s-pulse" aria-hidden="true"></span>In Telegram, press <b>Start</b> in the Remixfox bot. This page updates by itself.</p>
+              <p><a id="tg-connect-link" href="#" target="_blank" rel="noopener">Telegram did not open? Open the bot</a></p>
+            </div>
+            <div class="s-actions">
+              <button class="btn btn-chip" type="button" id="connect-telegram" hidden>Connect Telegram</button>
+              <button class="btn btn-chip" type="button" id="open-admin" hidden>Admin panel</button>
+              <button class="btn btn-chip" type="button" id="replay-guide">Show the guide again</button>
+              <button class="btn btn-chip is-quiet" type="button" id="sign-out">Sign out</button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section id="view-admin" class="view" hidden>
+        <header class="feed-header">
+          <div>
+            <h1>Admin panel</h1>
+            <p class="subtitle" id="admin-subtitle">Everything happening in Remixfox</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-chip" type="button" id="admin-refresh">
+              <svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg>Refresh
+            </button>
+          </div>
+        </header>
+        <div class="settings-grid">
+          <section class="s-card" aria-labelledby="a-money-title">
+            <h2 id="a-money-title">Money <span class="s-tag">Stripe</span></h2>
+            <div class="s-stats a-stats" id="admin-money"></div>
+            <p class="s-note" id="admin-money-note"></p>
+          </section>
+          <section class="s-card" aria-labelledby="a-people-title">
+            <h2 id="a-people-title">People and plans</h2>
+            <div class="s-stats a-stats" id="admin-people"></div>
+            <ul class="a-plans" id="admin-plans"></ul>
+          </section>
+          <section class="s-card" aria-labelledby="a-reels-title">
+            <h2 id="a-reels-title">Reels</h2>
+            <div class="s-stats a-stats" id="admin-reels"></div>
+          </section>
+          <section class="s-card" aria-labelledby="a-costs-title">
+            <h2 id="a-costs-title">Costs <span class="s-tag">Apify and OpenAI</span></h2>
+            <div class="a-table-wrap"><table class="a-table" id="admin-costs"></table></div>
+            <p class="s-note">Estimated from every fetch, transcript and AI batch, in US dollars as Apify and OpenAI charge them. Revenue above is in pounds.</p>
+          </section>
+          <section class="s-card" id="s-overview" aria-labelledby="s-overview-title" hidden>
+            <h2 id="s-overview-title">Accounts and fetches <span class="s-tag">Live</span></h2>
+            <div class="s-stats" id="overview-stats"></div>
+            <h3>Latest fetches, from every account</h3>
+            <p class="s-note">Click one to watch its steps and log.</p>
+            <ul class="s-rows" id="overview-jobs"></ul>
+            <h3>Accounts</h3>
+            <ul class="s-rows" id="overview-users"></ul>
+          </section>
+
+          <section class="s-card" id="s-admins" aria-labelledby="s-admins-title" hidden>
+            <h2 id="s-admins-title">Admins <span class="s-tag">Owner only</span></h2>
+            <p class="s-note">Up to 10 people who help your customers. Add their e-mail and a password to give them; they sign in with that e-mail and password (or a code sent to the e-mail) and can change the password in Settings. Admins use Remixfox free with Studio limits and see the Admin panel, but cannot change the AI, the admins or billing.</p>
+            <form class="s-add s-add-admin" id="admin-form">
+              <input type="email" id="admin-email" name="email" placeholder="name@example.com" autocomplete="off" maxlength="254" required aria-label="Admin’s e-mail">
+              <input type="text" id="admin-password" name="password" placeholder="Password to give them" autocomplete="off" minlength="8" maxlength="128" aria-label="Admin’s password" spellcheck="false">
+              <button class="btn btn-chip" type="button" id="admin-generate">Generate</button>
+              <button class="btn btn-primary" type="submit">Add admin</button>
+            </form>
+            <ul class="s-rows" id="admin-list"></ul>
+          </section>
+
+          <section class="s-card" id="s-ai" aria-labelledby="s-ai-title" hidden>
+            <h2 id="s-ai-title">AI <span class="s-tag">Owner only</span></h2>
+            <p class="s-note">GPT-5.6 Luna, through the OpenAI API, splits every transcript into hook, main script and call to action in each user's chosen language (British English unless they pick another). A transcript already in that language stays word for word.</p>
+            <p class="s-status" id="ai-status"></p>
+            <dl class="s-facts">
+              <div><dt>Model</dt><dd id="ai-model"></dd></div>
+              <div><dt>Waiting</dt><dd id="ai-waiting"></dd></div>
+              <div><dt>Last run</dt><dd id="ai-last"></dd></div>
+            </dl>
+          </section>
+
+        </div>
+      </section>
+      <footer class="app-foot">
+        <nav aria-label="Legal">
+          <a href="legal.html" target="_blank" rel="noopener">Legal notice</a>
+          <a href="privacy.html" target="_blank" rel="noopener">Privacy policy</a>
+          <a href="terms.html" target="_blank" rel="noopener">Terms of use</a>
+          <a href="privacy.html#cookies" target="_blank" rel="noopener">Cookies</a>
+        </nav>
+        <p>© 2026 Remixfox, run by Oleh Datsyk. Payments are handled by Stripe. Made with <span class="w-heart" role="img" aria-label="love">♥</span> by Oleh Datsyk</p>
+      </footer>
+    </main>
+
+    <!-- Right: selected reel preview -->
+    <aside class="panel preview" aria-labelledby="preview-title">
+      <header class="preview-header">
+        <h2 id="preview-title">Reel Preview</h2>
+        <button class="btn btn-chip btn-open" type="button" id="open-instagram" data-needs-reel>
+          <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>Open original
+        </button>
+      </header>
+
+      <div class="preview-cover cover is-loading" id="preview-cover">
+        <span class="cover-img"></span><span class="cover-img"></span>
+        <a class="cover-open" id="preview-open" target="_blank" rel="noopener">
+          <span class="play-badge" aria-hidden="true"><svg class="icon"><use href="#i-play"/></svg></span>
+        </a>
+        <span class="stat-chip" id="preview-engagement" hidden></span>
+        <span class="stat-chip stat-chip-right" id="preview-duration" hidden></span>
+        <span class="views" id="preview-views"></span>
+        <button class="cover-expand" type="button" id="preview-expand" aria-label="Full screen">
+          <svg class="icon"><use href="#i-expand"/></svg>
+        </button>
+      </div>
+
+      <div class="preview-actions">
+        <button class="btn btn-gradient" type="button" id="plan-toggle" data-needs-reel>
+          <svg class="icon"><use href="#i-plus"/></svg><span>Add to content plan</span>
+        </button>
+        <button class="btn btn-square" type="button" id="edit-reel" data-needs-reel aria-label="Edit your version" title="Edit your version">
+          <svg class="icon"><use href="#i-pencil"/></svg>
+        </button>
+      </div>
+
+      <h3 class="quick-title">Quick Actions</h3>
+      <ul class="quick-actions">
+        <li><button type="button" id="copy-link" data-needs-reel><svg class="icon"><use href="#i-link"/></svg>Copy Link</button></li>
+        <li><button type="button" id="download" data-needs-reel><svg class="icon"><use href="#i-download"/></svg>Download</button></li>
+      </ul>
+    </aside>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" title="Click to close"></div>
+
+  <!-- Activity: each step of "Fetch reels", live, with the server's debug log -->
+  <section class="activity" id="activity" hidden aria-labelledby="activity-title">
+    <header class="activity-head">
+      <span class="activity-icon" aria-hidden="true"></span>
+      <div class="activity-heading">
+        <h2 id="activity-title">Fetching reels</h2>
+        <p class="activity-sub" id="activity-sub" aria-live="polite"></p>
+      </div>
+      <button class="icon-btn" type="button" id="activity-minimise" aria-label="Minimise">
+        <svg class="icon"><use href="#i-minus"/></svg>
+      </button>
+      <button class="icon-btn" type="button" id="activity-close" aria-label="Close">
+        <svg class="icon"><use href="#i-close"/></svg>
+      </button>
+    </header>
+    <div class="activity-bar" aria-hidden="true"><span id="activity-bar"></span></div>
+    <div class="activity-jobs" id="activity-jobs" hidden></div>
+    <ol class="steps" id="activity-steps"></ol>
+    <div class="debug-head">
+      <button class="link-btn" type="button" id="debug-toggle" aria-expanded="true" aria-controls="debug-log">
+        <svg class="icon" aria-hidden="true"><use href="#i-terminal"/></svg>Debug log
+      </button>
+      <span class="note" id="debug-count"></span>
+    </div>
+    <div class="debug-log" id="debug-log" role="log"></div>
+  </section>
+  <button class="activity-pill" type="button" id="activity-pill" hidden>
+    <span class="pill-dot" aria-hidden="true"></span><span id="activity-pill-text"></span>
+  </button>
+
+  <!-- Reel editor: the user's own hook, script and call to action -->
+  <dialog class="editor" id="editor" aria-labelledby="editor-title">
+    <form id="editor-form" novalidate>
+      <header class="editor-header">
+        <div>
+          <h2 id="editor-title">Edit Reel</h2>
+          <p class="editor-meta" id="editor-meta"></p>
+        </div>
+        <div class="editor-header-actions">
+          <a class="btn btn-chip" id="editor-open" target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>Open original
+          </a>
+          <button class="icon-btn" type="button" data-close aria-label="Close">
+            <svg class="icon"><use href="#i-close"/></svg>
+          </button>
+        </div>
+      </header>
+      <div class="editor-body">
+        <section class="editor-column" aria-labelledby="original-title">
+          <h3 class="editor-column-title" id="original-title">Original</h3>
+          <dl class="reel-stats" id="editor-stats"></dl>
+          <div class="text-block">
+            <div class="text-block-head">
+              <h4>Transcript</h4>
+              <button class="link-btn" type="button" id="copy-transcript" hidden>
+                <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy
+              </button>
+            </div>
+            <p class="text-block-body" id="editor-transcript"></p>
+            <div class="transcript-fetch" id="transcript-fetch">
+              <button class="btn btn-chip" type="button" id="get-transcript">
+                <svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg><span>Get transcript</span>
+              </button>
+              <span class="note" id="transcript-note"></span>
+            </div>
+          </div>
+          <div class="text-block">
+            <div class="text-block-head"><h4 id="editor-caption-title">Caption</h4>
+              <button class="link-btn" type="button" id="caption-toggle" hidden>Show the original</button></div>
+            <p class="text-block-body" id="editor-caption"></p>
+          </div>
+        </section>
+        <section class="editor-column editor-version" aria-labelledby="remix-title">
+          <div class="editor-column-head">
+            <h3 class="editor-column-title" id="remix-title">Your version</h3>
+            <button class="link-btn" type="button" id="reset-version" hidden>
+              <svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg>Start again from the AI
+            </button>
+          </div>
+          <div class="plan-row" id="editor-plan"></div>
+          <div class="remix-row">
+            <button class="btn btn-gradient btn-remix-ai" type="button" id="remix-ai">
+              <svg class="icon" aria-hidden="true"><use href="#i-zap"/></svg><span>Remix in my voice</span>
+            </button>
+            <p class="note" id="remix-note">A new hook, script and call to action for your niche and tone, from what made this reel work.</p>
+          </div>
+          <p class="note version-note" id="version-note"></p>
+          <label class="field">
+            <span>Hook</span>
+            <textarea name="hook" rows="2" maxlength="5000" placeholder="The first line that stops the scroll"></textarea>
+          </label>
+          <label class="field">
+            <span>Main script</span>
+            <textarea name="script" rows="11" maxlength="20000" placeholder="What you say, shot by shot"></textarea>
+          </label>
+          <label class="field">
+            <span>Call to action</span>
+            <textarea name="cta" rows="2" maxlength="5000" placeholder="What viewers should do next"></textarea>
+          </label>
+        </section>
+      </div>
+      <footer class="editor-actions">
+        <button class="btn btn-soft" type="button" data-close>Cancel</button>
+        <button class="btn btn-primary" type="submit">Save</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

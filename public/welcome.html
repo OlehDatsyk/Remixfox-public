@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Remixfox — AI-powered Reels research and content creation</title>
+  <meta name="description" content="Remixfox finds your competitors' most viewed Instagram reels and uses AI to turn the best into a hook, script and call to action for your business. 15 days free.">
+  <link rel="canonical" href="https://remixfox.co.uk/">
+  <!-- Link previews in social apps and chats -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Remixfox">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:url" content="https://remixfox.co.uk/">
+  <meta property="og:title" content="Remixfox: get views, leads and clients from reels">
+  <meta property="og:description" content="Find your competitors' most viewed reels and turn the best into a hook, script and call to action for your business. 15 days free.">
+  <meta property="og:image" content="https://remixfox.co.uk/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Remixfox: a competitor's reels ranked by views, and a remix written for you">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Structured data for search engines. The prices must match app/plans.py (a test checks). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Remixfox",
+        "alternateName": "Remixfox AI",
+        "url": "https://remixfox.co.uk/",
+        "inLanguage": "en-GB"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Remixfox",
+        "alternateName": "Remixfox AI",
+        "url": "https://remixfox.co.uk/",
+        "image": "https://remixfox.co.uk/og-image.png",
+        "description": "AI-powered Reels research and content creation: Remixfox finds competitors' most viewed Instagram reels and turns the best into a hook, script and call to action.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web browser",
+        "offers": {
+          "@type": "AggregateOffer",
+          "priceCurrency": "GBP",
+          "lowPrice": "15",
+          "highPrice": "99",
+          "offerCount": "3"
+        }
+      }
+    ]
+  }
+  </script>
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="welcome.css">
+  <script>
+    document.documentElement.classList.add('js'); // lets sections animate in; without JS they simply show
+    try {
+      const t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+  <script src="welcome.js" defer></script>
+</head>
+<body class="welcome">
+  <header class="w-top">
+    <a class="w-brand" href="#top" aria-label="Remixfox">
+      <img src="logo.svg" alt="" width="44" height="44">
+      <span>Remixfox</span>
+    </a>
+    <nav class="w-links" aria-label="Page">
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a class="w-signin" href="#connect" data-to-auth>Sign in</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- Hero: "Get views / leads / clients from reels", typed and erased -->
+    <section class="w-hero">
+      <div class="w-pitch">
+        <p class="w-eyebrow">For producers and creators who post reels</p>
+        <h1 class="w-title" aria-label="Get views, leads and clients from reels">
+          <span class="w-title-1" aria-hidden="true">Get <span class="w-typed" id="typed">views</span><span class="w-caret"></span></span>
+          <span class="w-title-2" aria-hidden="true">from reels</span>
+        </h1>
+        <p class="w-lead">Remixfox finds your competitors' most viewed reels and turns the best of them into a hook,
+          script and call to action for your business, ready to film this week.</p>
+        <div class="w-ctas">
+          <a class="btn btn-primary w-cta" href="#connect" data-to-auth>Try it free</a>
+          <a class="btn w-ghost" href="#how">See how it works</a>
+        </div>
+        <ul class="w-trust">
+          <li><svg class="icon" aria-hidden="true"><use href="#w-check"/></svg>15 days free, no card</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#w-check"/></svg>Code, password or Telegram</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#w-check"/></svg>Cancel at any time</li>
+        </ul>
+      </div>
+
+      <!-- A small working picture of the product: reels ranked by views, then the remix being written -->
+      <div class="w-demo" aria-hidden="true">
+        <div class="d-card">
+          <div class="d-head">
+            <span class="d-avatar">C</span>
+            <div><b>@competitor</b><small>20 latest reels · most viewed first</small></div>
+          </div>
+          <ol class="d-reels">
+            <li><span class="d-rank">🥇</span><span class="d-thumb d-t1"><svg class="icon"><use href="#w-play"/></svg></span><span class="d-lines"><i></i><i></i></span><b class="d-views" data-to="2600000">2.6M</b></li>
+            <li><span class="d-rank">🥈</span><span class="d-thumb d-t2"><svg class="icon"><use href="#w-play"/></svg></span><span class="d-lines"><i></i><i></i></span><b class="d-views" data-to="1400000">1.4M</b></li>
+            <li><span class="d-rank">🥉</span><span class="d-thumb d-t3"><svg class="icon"><use href="#w-play"/></svg></span><span class="d-lines"><i></i><i></i></span><b class="d-views" data-to="870000">870K</b></li>
+          </ol>
+          <div class="d-remix">
+            <p class="d-label"><svg class="icon"><use href="#w-zap"/></svg>Your remix</p>
+            <p class="d-row"><span>Hook</span><em data-text="Most reels die in the first second.">Most reels die in the first second.</em></p>
+            <p class="d-row"><span>Script</span><em data-text="Here is what the top accounts do differently…">Here is what the top accounts do differently…</em></p>
+            <p class="d-row"><span>CTA</span><em data-text="Comment PLAN and I'll send you mine.">Comment PLAN and I'll send you mine.</em></p>
+          </div>
+        </div>
+        <div class="d-float d-float-1"><svg class="icon"><use href="#w-play"/></svg>2.6M views</div>
+        <div class="d-float d-float-2">✓ Script ready to film</div>
+      </div>
+    </section>
+
+    <!-- Why: automate the producer's work and save money -->
+    <section class="w-section" id="why" aria-labelledby="why-title">
+      <p class="w-eyebrow reveal">Why Remixfox</p>
+      <h2 class="w-big reveal" id="why-title">Remixfox automates a producer's work <span>and saves you money</span></h2>
+      <p class="w-section-lead reveal">Finding what works, transcribing reels and writing scripts takes days. Remixfox does the slow part,
+        so you spend your time filming, not scrolling.</p>
+      <div class="w-values">
+        <article class="reveal">
+          <span class="w-icon"><svg class="icon"><use href="#w-clock"/></svg></span>
+          <h3>Hours of research in minutes</h3>
+          <p>Add a competitor and get their 20 latest reels with views, likes and comments, already ranked.</p>
+        </article>
+        <article class="reveal">
+          <span class="w-icon"><svg class="icon"><use href="#w-chart"/></svg></span>
+          <h3>Proven ideas, not guesses</h3>
+          <p>Every idea has already worked for someone in your niche: the most viewed reels come first.</p>
+        </article>
+        <article class="reveal">
+          <span class="w-icon"><svg class="icon"><use href="#w-zap"/></svg></span>
+          <h3>Scripts ready to film</h3>
+          <p>Each reel becomes a hook, script and call to action. Reels in other languages are translated into yours.</p>
+        </article>
+        <article class="reveal">
+          <span class="w-icon"><svg class="icon"><use href="#w-pound"/></svg></span>
+          <h3>One subscription</h3>
+          <p>Instead of paying for research, transcription and scriptwriting separately, one plan covers the routine.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- How it works, step by step -->
+    <section class="w-section" id="how" aria-labelledby="how-title">
+      <p class="w-eyebrow reveal">How it works</p>
+      <h2 class="w-big reveal" id="how-title">From their best reel <span>to your next client</span></h2>
+      <ol class="w-flow">
+        <li class="reveal">
+          <span class="w-num">1</span>
+          <h3>Add your competitors</h3>
+          <p>Paste an Instagram link. Remixfox fetches their latest reels with every number that matters.</p>
+          <div class="w-snippet">
+            <span class="sn-input">instagram.com/<b>competitor</b></span>
+            <span class="sn-btn">Fetch reels</span>
+          </div>
+        </li>
+        <li class="reveal">
+          <span class="w-num">2</span>
+          <h3>Get the best reels</h3>
+          <p>They are ranked by views, so the reels that really work come first. Swipe right to keep an idea.</p>
+          <div class="w-snippet">
+            <span class="sn-chip">🥇 2.6M</span><span class="sn-chip">🥈 1.4M</span><span class="sn-chip">🥉 870K</span>
+          </div>
+        </li>
+        <li class="reveal">
+          <span class="w-num">3</span>
+          <h3>Repeat it for your business</h3>
+          <p>Each reel's words become a hook, script and call to action. Rewrite them for your product, in your own voice.</p>
+          <div class="w-snippet">
+            <span class="sn-tag">Hook</span><span class="sn-tag">Script</span><span class="sn-tag">CTA</span>
+          </div>
+        </li>
+        <li class="reveal">
+          <span class="w-num">4</span>
+          <h3>Attract clients</h3>
+          <p>Film, post and track every idea on your content plan. Views bring leads, and leads become clients.</p>
+          <div class="w-snippet">
+            <span class="sn-chip">❌ To do</span><span class="sn-arrow">→</span><span class="sn-chip">⏳ Ready</span><span class="sn-arrow">→</span><span class="sn-chip">✅ Posted</span>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Pricing: the live Stripe price -->
+    <section class="w-section" id="pricing" aria-labelledby="pricing-title">
+      <p class="w-eyebrow reveal">Pricing</p>
+      <h2 class="w-big reveal" id="pricing-title">Pick a plan, <span>cancel at any time</span></h2>
+      <p class="w-section-lead reveal">Start with 15 days free: two competitors, the 5 best reels of each, with transcripts and scripts; no card needed. Every plan then gets fresh reels, transcripts, AI scripts and translation; bigger plans track more competitors and analyse more videos. Pay yearly and save 20%.</p>
+      <div class="sort-toggle w-interval reveal" id="interval" role="group" aria-label="Billing period">
+        <button type="button" data-interval="month" aria-pressed="true">Monthly</button>
+        <button type="button" data-interval="year" aria-pressed="false">Yearly <span class="s-save">−20%</span></button>
+      </div>
+      <ul class="w-plans reveal" id="plans" aria-live="polite">
+        <li class="w-plan is-loading" aria-hidden="true"></li>
+        <li class="w-plan is-loading" aria-hidden="true"></li>
+        <li class="w-plan is-loading" aria-hidden="true"></li>
+      </ul>
+      <p class="w-small w-plans-note reveal">Prices in pounds sterling. Stripe handles every payment; change or cancel your plan on the Plans page whenever you like.</p>
+    </section>
+
+    <!-- FAQ: what people ask before they trust a tool with their content -->
+    <section class="w-section" id="faq" aria-labelledby="faq-title">
+      <p class="w-eyebrow reveal">Good to know</p>
+      <h2 class="w-big reveal" id="faq-title">Questions, <span>answered honestly</span></h2>
+      <div class="w-faq reveal">
+        <details>
+          <summary>Where do the numbers come from, and how accurate are they?</summary>
+          <p>Views, likes and comments are Instagram's own public counts, collected through Apify, a third-party data
+            service, at the moment you fetch. Remixfox does not estimate or change them. They keep growing after a fetch,
+            so fetch again for fresh numbers. If a creator hides their likes, Instagram does not share them and they show as 0.</p>
+        </details>
+        <details>
+          <summary>How often is competitor data updated?</summary>
+          <p>Whenever you ask: press Fetch Reels or Refresh. Each competitor can be fetched once every 24 hours, which
+            brings its 20 latest reels (pinned reels are skipped; the 5 most viewed on the free trial) with fresh numbers.
+            Nothing runs in the background, so your plan is only used when you want it to be.</p>
+        </details>
+        <details>
+          <summary>Which Instagram accounts can I analyse?</summary>
+          <p>Any public Instagram account that posts reels: paste its link or @username. Private accounts cannot be
+            fetched. Remixfox never asks for your Instagram password and never connects to or posts from your account.</p>
+        </details>
+        <details>
+          <summary>What if Instagram data cannot be fetched?</summary>
+          <p>What we can fetch depends on what Instagram makes public and on Apify, so now and then a fetch fails or brings
+            fewer than 20 reels: for example, when an account is private, renamed or has no reels, or Instagram limits
+            access for a while. The activity panel shows what happened. A failed fetch counts no reels and does not start
+            that competitor's 24-hour wait, so you can try again; every plan has two spare fetches a day for this.</p>
+        </details>
+        <details>
+          <summary>Which AI does Remixfox use?</summary>
+          <p>Transcripts come from speech-to-text through Apify. The hook, script and call to action, the translations into
+            your language and the remixes in your voice are written by OpenAI's GPT-5.6 Luna, through OpenAI's API. AI can
+            get things wrong, so read each script before you film it.</p>
+        </details>
+        <details>
+          <summary>Can I just copy my competitors' reels?</summary>
+          <p>No, and you do not need to. Reels belong to their creators: Remixfox shows you what works (the hook, the
+            structure, the pacing) and helps you write your own version for your business. Do not republish other
+            people's videos or their words.</p>
+        </details>
+        <details>
+          <summary>What happens when the free trial ends?</summary>
+          <p>After 15 days, or once its 4 fetches are used, fetching new reels needs a plan. Everything you fetched, your
+            scripts and your content plan stay in your account.</p>
+        </details>
+        <details>
+          <summary>Can I cancel my subscription?</summary>
+          <p>Yes, at any time: Plans page → Manage billing and invoices. You keep your plan until the end of the period you
+            paid for and are not charged again. A new paid plan also has a 14-day right to cancel; the details are in our
+            <a href="terms.html#cancel">Terms of use</a>.</p>
+        </details>
+      </div>
+      <p class="w-small w-faq-more reveal">Something else? Write to <a href="mailto:oleh@remixfox.co.uk">oleh@remixfox.co.uk</a>.</p>
+    </section>
+
+    <!-- Connect: sign in or create an account -->
+    <section class="w-section w-connect" id="connect" aria-labelledby="connect-title">
+      <div class="w-connect-copy reveal">
+        <h2 class="w-big" id="connect-title">Ready to get clients <span>from reels?</span></h2>
+        <p class="w-section-lead">Your account takes seconds: a code by e-mail or one tap in Telegram, and a password if you like.</p>
+      </div>
+      <div class="w-card reveal" id="auth">
+        <h2 id="auth-title">Sign in or create an account</h2>
+        <div class="sort-toggle w-auth-mode" id="auth-mode" role="group" aria-label="How to sign in">
+          <button type="button" data-mode="email" aria-pressed="true">Code by e-mail</button>
+          <button type="button" data-mode="password" aria-pressed="false">Password</button>
+        </div>
+        <p class="w-small" id="auth-note">No password needed: we e-mail you a 6-digit code.</p>
+        <form id="email-form" novalidate>
+          <label class="w-field" id="email-field">
+            <span>E-mail</span>
+            <input id="email" name="email" type="email" autocomplete="email" required spellcheck="false" placeholder="you@example.com">
+          </label>
+          <label class="w-field" id="password-field" hidden>
+            <span>Password</span>
+            <input id="password" name="password" type="password" autocomplete="current-password" maxlength="128" placeholder="Your password">
+          </label>
+          <label class="w-field" id="newpass-field" hidden>
+            <span>Create a password (optional)</span>
+            <input id="new-password" name="new-password" type="password" autocomplete="new-password" minlength="8" maxlength="128" placeholder="At least 8 characters">
+          </label>
+          <label class="w-field" id="code-field" hidden>
+            <span>Code from the e-mail</span>
+            <input id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="7" placeholder="123456">
+          </label>
+          <p class="w-error" id="auth-error" role="alert" hidden></p>
+          <button class="btn btn-primary" type="submit" id="auth-submit">E-mail me a code</button>
+          <p class="w-small" id="code-links" hidden>
+            <button type="button" id="change-email">Use another e-mail</button> ·
+            <button type="button" id="resend-code">Send a new code</button>
+          </p>
+          <p class="w-small" id="password-links" hidden>
+            Forgot it? <button type="button" id="use-code">Sign in with a code</button>, then set a new one in Settings.
+          </p>
+          <p class="w-small" id="newpass-links" hidden>
+            <button type="button" id="skip-password">Skip for now</button> (you can add one later in Settings)
+          </p>
+        </form>
+        <div class="w-or" aria-hidden="true"><span>or</span></div>
+        <button class="btn w-telegram" type="button" id="telegram-btn">
+          <svg class="icon" aria-hidden="true"><use href="#w-telegram"/></svg>Continue with Telegram
+        </button>
+        <div class="w-tg-wait" id="tg-wait" hidden>
+          <p><span class="s-pulse" aria-hidden="true"></span>In Telegram, press <b>Start</b>. This page signs you in by itself.</p>
+          <p class="w-small"><a id="tg-link" href="#" target="_blank" rel="noopener">Telegram did not open? Open the bot</a> ·
+            <button type="button" id="tg-cancel">Cancel</button></p>
+        </div>
+        <p class="w-legal">By continuing, you agree to our <a href="terms.html">Terms of use</a> and confirm you have read our
+          <a href="privacy.html">Privacy policy</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="w-foot">
+    <a class="w-brand w-foot-brand" href="#top"><img src="logo.svg" alt="" width="30" height="30"><span>Remixfox</span></a>
+    <nav aria-label="Legal">
+      <a href="legal.html">Legal notice</a>
+      <a href="privacy.html">Privacy policy</a>
+      <a href="terms.html">Terms of use</a>
+      <a href="privacy.html#cookies">Cookies</a>
+    </nav>
+    <section class="w-legal-block" id="legal" aria-labelledby="legal-title">
+      <h2 id="legal-title">Legal</h2>
+      <p>Remixfox (remixfox.co.uk) is run by Oleh Datsyk, a sole trader, in the United Kingdom.
+        Contact: <a href="mailto:oleh@remixfox.co.uk">oleh@remixfox.co.uk</a>. More in our <a href="legal.html">Legal notice</a>.</p>
+      <p>Payments are processed by Stripe; we never see or store your card details. Prices are in pounds sterling,
+        and you can cancel at any time on the Plans page. Read the <a href="terms.html">Terms of use</a> (including
+        cancelling and refunds) before you subscribe.</p>
+      <p>We use only the cookies needed to keep you signed in: no advertising or tracking cookies. How we handle your
+        data is in our <a href="privacy.html">Privacy policy</a>.</p>
+      <p>Remixfox is not connected with or endorsed by Instagram or Meta. Reels belong to their creators: use them for
+        research and inspiration, not to republish.</p>
+    </section>
+    <div class="w-foot-bottom">
+      <span>© 2026 Remixfox. Payments are handled by Stripe.</span>
+      <span class="w-credit">Made with <span class="w-heart" role="img" aria-label="love">♥</span> by Oleh Datsyk</span>
+    </div>
+  </footer>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="w-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="w-telegram" viewBox="0 0 24 24"><path fill="currentColor" d="M21.9 4.4 18.7 19.6c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.2-8.3c.4-.4-.1-.6-.6-.2L6.1 13.2l-4.9-1.5c-1.1-.3-1.1-1.1.2-1.6l19.1-7.4c.9-.3 1.7.2 1.4 1.7z"/></symbol>
+    <symbol id="w-play" viewBox="0 0 24 24"><path d="M7 4.2v15.6a1 1 0 0 0 1.5.86l13-7.8a1 1 0 0 0 0-1.72l-13-7.8A1 1 0 0 0 7 4.2z" fill="currentColor"/></symbol>
+    <symbol id="w-zap" viewBox="0 0 24 24"><path d="M13.5 1.5 4 13.6h7.2l-1.4 8.9 9.7-12.4h-7.3z" fill="currentColor"/></symbol>
+    <symbol id="w-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="w-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="w-pound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 19H7c2-1.5 2.5-3.5 2.5-6V8.5A4.5 4.5 0 0 1 17 6"/><path d="M6 13h8"/></symbol>
+  </svg>
+</body>
+</html>

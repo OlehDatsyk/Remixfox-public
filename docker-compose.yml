@@ -1,0 +1,40 @@
+# Local stack: the app on http://localhost:8080 and PostgreSQL.
+# Put APIFY_TOKEN=... in a .env file next to this one (it is git-ignored).
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: remixfox
+      POSTGRES_USER: remixfox
+      POSTGRES_PASSWORD: remixfox
+    ports:
+      - "127.0.0.1:5433:5432" # for the tests and local tools
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U remixfox -d remixfox"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: postgresql://remixfox:remixfox@db:5432/remixfox
+      APIFY_TOKEN: ${APIFY_TOKEN:-}
+      AUTO_TRANSCRIBE: ${AUTO_TRANSCRIBE:-true}
+      SECRET_KEY: local-development-only-secret
+      OWNER_EMAIL: ${OWNER_EMAIL:-owner@example.com}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db-data:

@@ -1,0 +1,8 @@
+Copyright (c) 2026 Oleh Datsyk. All rights reserved.
+
+Remixfox is proprietary software. No permission is granted to copy, modify, distribute, sublicense
+or sell any part of this repository without the written permission of the copyright holder.
+
+Third-party parts keep their own licences:
+- public/fonts/plus-jakarta-sans-latin.woff2: Plus Jakarta Sans, SIL Open Font License 1.1 (see public/fonts/OFL.txt).
+- The Python packages in requirements.txt are installed from PyPI under their own licences and are not included here.

@@ -1,0 +1,6 @@
+# Keep LF line endings everywhere, including Windows checkouts,
+# so files copied into the Linux container (Caddyfile, Dockerfile) stay LF.
+* text=auto eol=lf
+
+*.png binary
+*.woff2 binary

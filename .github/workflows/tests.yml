@@ -1,0 +1,38 @@
+name: Tests
+
+# Runs the test suite against PostgreSQL on every push and pull request.
+# (The live service is deployed from a private repository.)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: remixfox_test
+          POSTGRES_USER: remixfox
+          POSTGRES_PASSWORD: remixfox
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U remixfox -d remixfox_test"
+          --health-interval 2s --health-timeout 3s --health-retries 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements*.txt
+      - run: pip install -r requirements-dev.txt
+      - run: pytest
+        env:
+          DATABASE_URL: postgresql://remixfox:remixfox@127.0.0.1:5433/remixfox_test

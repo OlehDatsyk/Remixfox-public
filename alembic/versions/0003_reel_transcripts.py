@@ -1,0 +1,25 @@
+"""Reel transcripts: what the author says, fetched on request.
+
+Revision ID: 0003
+Revises: 0001
+Create Date: 2026-11-08
+"""
+from typing import Sequence, Union
+
+import sqlalchemy as sa
+from alembic import op
+
+revision: str = "0003"
+down_revision: Union[str, Sequence[str], None] = "0001"
+branch_labels: Union[str, Sequence[str], None] = None
+depends_on: Union[str, Sequence[str], None] = None
+
+
+def upgrade() -> None:
+    op.add_column("reels", sa.Column("transcript", sa.Text(), nullable=True))
+    op.add_column("reels", sa.Column("transcript_fetched_at", sa.DateTime(timezone=True), nullable=True))
+
+
+def downgrade() -> None:
+    op.drop_column("reels", "transcript_fetched_at")
+    op.drop_column("reels", "transcript")
